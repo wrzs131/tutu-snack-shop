@@ -78,67 +78,67 @@
 
 ### 首页
 
-![屏幕截图 2026-06-02 160056](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160056.png)
+![屏幕截图 2026-06-02 160056](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160056.png)
 
 **添加购物车**
 
-![屏幕截图 2026-06-02 160336](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160336.png)
+![屏幕截图 2026-06-02 160336](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160336.png)
 
 **结算**
 
-![屏幕截图 2026-06-02 160352](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160352.png)
+![屏幕截图 2026-06-02 160352](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160352.png)
 
 **生成对应订单**
 
-![屏幕截图 2026-06-02 160414](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160414.png)
+![屏幕截图 2026-06-02 160414](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160414.png)
 
-![屏幕截图 2026-06-02 160437](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160437.png)
+![屏幕截图 2026-06-02 160437](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160437.png)
 
 **再次购买**
 
-![屏幕截图 2026-06-02 160553](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160553.png)
+![屏幕截图 2026-06-02 160553](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160553.png)
 
-![屏幕截图 2026-06-02 160541](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160541.png)
+![屏幕截图 2026-06-02 160541](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160541.png)
 
 **退款**
 
-![屏幕截图 2026-06-02 160608](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160608.png)
+![屏幕截图 2026-06-02 160608](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160608.png)
 
-![屏幕截图 2026-06-02 160633](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160633.png)
+![屏幕截图 2026-06-02 160633](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160633.png)
 
 ### **订单页**
 
-![屏幕截图 2026-06-02 160645](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160645.png)
+![屏幕截图 2026-06-02 160645](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160645.png)
 
 ### **订单详情页**
 
-![屏幕截图 2026-06-02 160437](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160437.png)
+![屏幕截图 2026-06-02 160437](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160437.png)
 
 ### **我的页**
 
-![屏幕截图 2026-06-02 160656](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160656.png)
+![屏幕截图 2026-06-02 160656](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160656.png)
 
 **我的收藏**
 
-![屏幕截图 2026-06-02 160715](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160715.png)
+![屏幕截图 2026-06-02 160715](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160715.png)
 
 **AI页**
 
-![屏幕截图 2026-06-02 160731](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 160731.png)
+![屏幕截图 2026-06-02 160731](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20160731.png)
 
-![屏幕截图 2026-06-02 161411](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 161411.png)
+![屏幕截图 2026-06-02 161411](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20161411.png)
 
 **关于我们**
 
-![屏幕截图 2026-06-02 162317](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 162317.png)
+![屏幕截图 2026-06-02 162317](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20162317.png)
 
 **意见反馈**
 
-![屏幕截图 2026-06-02 162401](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 162401.png)
+![屏幕截图 2026-06-02 162401](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20162401.png)
 
 ### **设置页**
 
-![屏幕截图 2026-06-02 162413](./tutu-snack-shop-fronted-UI/屏幕截图 2026-06-02 162413.png)
+![屏幕截图 2026-06-02 162413](./tutu-snack-shop-fronted-UI/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-06-02%20162413.png)
 
 ## 🔧 快速开始
 
