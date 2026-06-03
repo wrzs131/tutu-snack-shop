@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: LSPxcxEvent
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    driver-class-name: ${sky.datasource.driver-class-name}
+    url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}
+    username: ${sky.datasource.username}
+    password: ${sky.datasource.password}
+  web:
+    resources:
+      static-locations: classpath:/static/  # 静态资源目录
+      add-mappings: true  # 启用静态资源映射
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis:
+  mapper-locations: classpath:com.itheima.mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+pagehelper:
+  #reasonable：分页合理化参数，默认值为false。
+  #当该参数设置为true时，pageNum<=0时会查询第一页，
+  #pageNum>pages（超过总数时），会查询最后一页。
+  #默认false 时，直接根据参数进行查询
+  reasonable: true
+  helper-dialect: mysql
+
+sky:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+#    admin-secret-key: itcast
+    # 设置jwt过期时间
+#    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+#    admin-token-name: token
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: itheima
+    # 设置jwt过期时间
+    user-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    user-token-name: authentication
+  #  alioss:
+  #    endpoint: ${sky.alioss.endpoint}
+  #    access-key-id: ${sky.alioss.access-key-id}
+  #    access-key-secret: ${sky.alioss.access-key-secret}
+  #    bucket-name: ${sky.alioss.bucket-name}
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
+  qianfan:
+    access-key: ${sky.qianfan.access-key}
+    secret-key: ${sky.qianfan.secret-key}

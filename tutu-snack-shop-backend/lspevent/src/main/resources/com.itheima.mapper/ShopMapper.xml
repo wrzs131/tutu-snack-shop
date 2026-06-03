@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.ShopMapper">
+
+    <select id="list" resultType="com.itheima.pojo.Shop">
+        select * from shop
+    </select>
+
+    <select id="getById" resultType="com.itheima.pojo.Shop">
+        select * from shop where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.itheima.pojo.Shop">
+        insert into shop(name, logo, status, business_hours, phone, address, created_at, updated_at)
+        values(#{name}, #{logo}, #{status}, #{businessHours}, #{phone}, #{address}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.itheima.pojo.Shop">
+        update shop
+        set name = #{name},
+            logo = #{logo},
+            status = #{status},
+            business_hours = #{businessHours},
+            phone = #{phone},
+            address = #{address},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from shop where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.CartMapper">
+
+    <resultMap id="CartVOMap" type="com.itheima.vo.CartVO">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImage" column="product_image"/>
+        <result property="quantity" column="quantity"/>
+        <result property="price" column="price"/>
+        <result property="subtotal" column="subtotal"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <select id="listByUserId" resultMap="CartVOMap">
+        select c.id,
+               c.user_id,
+               c.product_id,
+               p.name as product_name,
+               p.image as product_image,
+               c.quantity,
+               c.price,
+               c.quantity * c.price as subtotal,
+               c.created_at,
+               c.updated_at
+        from cart c
+                 left join product p on c.product_id = p.id
+        where c.user_id = #{userId}
+    </select>
+
+    <select id="getById" resultType="com.itheima.pojo.Cart">
+        select * from cart where id = #{id}
+    </select>
+
+    <select id="getByUserIdAndProductId" resultType="com.itheima.pojo.Cart">
+        select * from cart where user_id = #{userId} and product_id = #{productId}
+    </select>
+
+    <insert id="insert" parameterType="com.itheima.pojo.Cart" useGeneratedKeys="true" keyProperty="id">
+        insert into cart(user_id, product_id, quantity, price, created_at, updated_at)
+        values (#{userId}, #{productId}, #{quantity}, #{price}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.itheima.pojo.Cart">
+        update cart
+        set quantity = #{quantity},
+            price = #{price},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from cart where id = #{id}
+    </delete>
+
+    <delete id="deleteByUserId">
+        delete from cart where user_id = #{userId}
+    </delete>
+
+</mapper>

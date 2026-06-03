@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.ProductMapper">
+
+    <select id="list" resultType="com.itheima.pojo.Product">
+        select * from product
+    </select>
+
+    <select id="listByCategoryId" resultType="com.itheima.pojo.Product">
+        select * from product where category_id = #{categoryId}
+    </select>
+
+    <select id="getById" resultType="com.itheima.pojo.Product">
+        select * from product where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.itheima.pojo.Product">
+        insert into product(name, price, original_price, stock, image, category_id, discount, created_at, updated_at)
+        values(#{name}, #{price}, #{originalPrice}, #{stock}, #{image}, #{categoryId}, #{discount}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.itheima.pojo.Product">
+        update product
+        set name = #{name},
+            price = #{price},
+            original_price = #{originalPrice},
+            stock = #{stock},
+            image = #{image},
+            category_id = #{categoryId},
+            discount = #{discount},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from product where id = #{id}
+    </delete>
+
+    <update id="updateStock" parameterType="com.itheima.pojo.Product">
+        update product
+        set stock = stock - #{stock},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+</mapper>

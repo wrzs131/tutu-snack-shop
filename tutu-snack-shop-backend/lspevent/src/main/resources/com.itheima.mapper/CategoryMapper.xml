@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.CategoryMapper">
+
+    <select id="list" resultType="com.itheima.pojo.Category">
+        select * from category
+    </select>
+
+    <select id="getById" resultType="com.itheima.pojo.Category">
+        select * from category where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.itheima.pojo.Category">
+        insert into category(name, created_at, updated_at)
+        values(#{name}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.itheima.pojo.Category">
+        update category
+        set name = #{name},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from category where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--定义Mapper映射文件的约束和基本结构-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.OrderMapper">
+
+    <select id="list" resultType="com.itheima.pojo.Order">
+        select * from `order`
+        <where>
+<!--            <if test="id != null">-->
+<!--                and id = #{id}-->
+<!--            </if>-->
+            <if test="begin != null">
+                and date(created_at) &gt;= date(#{begin})
+            </if>
+            <if test="end != null">
+                and date(created_at) &lt;= date(#{end})
+            </if>
+        </where>
+    </select>
+
+    <select id="getById" resultType="com.itheima.pojo.Order">
+        select * from `order` where id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.itheima.pojo.Order" useGeneratedKeys="true" keyProperty="id">
+        <choose>
+            <when test="id != null">
+                insert into `order`(id, user_id, total_amount, status, created_at, updated_at)
+                values(#{id}, #{userId}, #{totalAmount}, #{status}, now(), now())
+            </when>
+            <otherwise>
+                insert into `order`(user_id, total_amount, status, created_at, updated_at)
+                values(#{userId}, #{totalAmount}, #{status}, now(), now())
+            </otherwise>
+        </choose>
+    </insert>
+
+    <update id="update" parameterType="com.itheima.pojo.Order">
+        update `order`
+        set user_id = #{userId},
+            total_amount = #{totalAmount},
+            status = #{status},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from `order` where id = #{id}
+    </delete>
+
+    <select id="listByUserId" resultType="com.itheima.pojo.Order">
+        select * from `order` where user_id = #{userId}
+    </select>
+
+    <select id="getMaxId" resultType="java.lang.Integer">
+        select max(id) from `order`
+    </select>
+
+    <update id="updateStatus">
+        update `order`
+        set status = #{status},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+</mapper>

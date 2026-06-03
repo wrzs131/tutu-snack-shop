@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.UserMapper">
+
+    <select id="list" resultType="com.itheima.pojo.User">
+        select * from user
+    </select>
+
+    <select id="getById" resultType="com.itheima.pojo.User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="getByPhone" resultType="com.itheima.pojo.User">
+        select * from user where phone = #{phone}
+    </select>
+
+    <insert id="insert" parameterType="com.itheima.pojo.User">
+        insert into user(openid, nickname, phone, avatar, created_at, updated_at)
+        values(#{openid}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, now(), now())
+    </insert>
+
+    <update id="update" parameterType="com.itheima.pojo.User">
+        update user
+        set nickname = #{nickname},
+            phone = #{phone},
+            updated_at = now()
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete from user where id = #{id}
+    </delete>
+
+    <select id="getByOpenid" resultType="com.itheima.pojo.User">
+        select * from user where openid = #{openid}
+    </select>
+
+</mapper>
