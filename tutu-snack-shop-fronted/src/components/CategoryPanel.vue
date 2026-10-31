@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue'
 import type { ShopInfo } from '@/types/home.d'
+import { baseUrl } from '@/utils/baseUrl'
 
 // 定义props
 const props = defineProps<{
@@ -14,7 +15,7 @@ const showBottomPopup = ref(false)
 const popupAnimation = ref('')
 
 // 店铺图片URL
-const imageUrl = 'http://localhost:8080'
+const imageUrl = baseUrl
 
 // 切换底部弹框显示状态
 const toggleDetails = () => {

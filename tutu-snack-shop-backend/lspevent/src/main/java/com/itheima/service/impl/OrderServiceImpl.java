@@ -141,4 +141,43 @@ public class OrderServiceImpl implements OrderService {
     public void updateStatus(Integer id, String status) {
         orderMapper.updateStatus(id, status);
     }
+
+    @Override
+    public void adminFlowStatus(Integer id, String targetStatus, String operatorRole) {
+        Order order = orderMapper.getById(id);
+        if (order == null) {
+            throw new RuntimeException("订单不存在");
+        }
+        String current = order.getStatus();
+        if (!isTransitionAllowed(current, targetStatus, operatorRole)) {
+            throw new RuntimeException("非法的状态流转：" + current + " → " + targetStatus
+                    + "（当前角色：" + operatorRole + "）");
+        }
+        orderMapper.updateStatus(id, targetStatus);
+    }
+
+    /**
+     * 判断某角色能否将订单从 current 流转到 target
+     * 管理员可执行全部合法流转，商家仅接单，骑手负责取餐/配送/送达
+     */
+    private boolean isTransitionAllowed(String current, String target, String role) {
+        boolean admin = "admin".equals(role);
+        boolean merchant = "merchant".equals(role);
+        boolean rider = "rider".equals(role);
+        String key = current + "->" + target;
+        switch (key) {
+            case "待确认->已接单":
+                return merchant || admin;
+            case "待确认->已退款":
+                return admin;
+            case "已接单->已取餐":
+                return rider || admin;
+            case "已取餐->配送中":
+                return rider || admin;
+            case "配送中->已送达":
+                return rider || admin;
+            default:
+                return false;
+        }
+    }
 }

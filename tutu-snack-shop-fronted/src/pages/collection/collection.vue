@@ -3,6 +3,7 @@ import CustomNavbar from '@/pages/index/components/CustomNavbar.vue'
 import { ref, onMounted } from 'vue'
 import { getProductListAPI } from '@/services/home'
 import type { ProductItem } from '@/types/home.d'
+import { baseUrl } from '@/utils/baseUrl'
 
 // 商品列表
 const productList = ref<ProductItem[]>([])
@@ -11,7 +12,7 @@ const productList = ref<ProductItem[]>([])
 const loading = ref(false)
 
 // 商品图片URL
-const imageUrl = 'http://localhost:8080'
+const imageUrl = baseUrl
 
 // 获取商品列表，只显示4个
 const fetchProducts = async () => {

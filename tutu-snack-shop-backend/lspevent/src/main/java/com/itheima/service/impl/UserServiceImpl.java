@@ -46,6 +46,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insert(User user) {
+        // 未指定角色时默认普通用户，未指定状态时默认启用
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("customer");
+        }
+        if (user.getStatus() == null || user.getStatus().isEmpty()) {
+            user.setStatus("active");
+        }
         userMapper.insert(user);
     }
 
@@ -74,12 +81,34 @@ public class UserServiceImpl implements UserService {
             user = User.builder()
                     .openid(openid)
                     .nickname("微信用户_" + openid.substring(0, Math.min(8, openid.length())))
+                    .role("customer")
+                    .status("active")
                     .createdAt(LocalDateTime.now())
                     .build();
             //这里的mapper的xml文件之所以要遍历id，是因为controller层要拿到token的userId
             userMapper.insert(user);
         }
         //返回这个用户对象
+        return user;
+    }
+
+    @Override
+    public User loginByUsername(String username, String password) {
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+            return null;
+        }
+        User user = userMapper.getByUsername(username);
+        // 账号不存在、密码不符、账号被禁用、或角色不是后台人员，均视为登录失败
+        if (user == null || !password.equals(user.getPassword())) {
+            return null;
+        }
+        if ("disabled".equals(user.getStatus())) {
+            return null;
+        }
+        String role = user.getRole();
+        if (!("admin".equals(role) || "merchant".equals(role) || "rider".equals(role))) {
+            return null;
+        }
         return user;
     }
 

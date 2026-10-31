@@ -53,4 +53,11 @@ public interface UserMapper {
      */
 //    @Select("select * from user where openid = #{openid}")
     User getByOpenid(String openid);
+
+    /**
+     * 根据登录账号查询用户（管理员/商家/骑手）
+     * @param username 登录账号
+     * @return 用户信息
+     */
+    User getByUsername(String username);
 }

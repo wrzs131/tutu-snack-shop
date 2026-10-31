@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import CustomNavbar from '@/pages/index/components/CustomNavbar.vue'
-import { ref, onMounted } from 'vue'
-import { getOrderItemsByOrderIdAPI, updateOrderStatusAPI } from '@/services/order'
+import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
+import { getOrderItemsByOrderIdAPI, getOrderByIdAPI, updateOrderStatusAPI } from '@/services/order'
 import { getShopListAPI } from '@/services/home'
 import { addToCartAPI, clearCartAPI } from '@/services/cart'
 import type { OrderItemDetail } from '@/types/order.d'
+import { baseUrl } from '@/utils/baseUrl'
 
 // 订单ID
 const orderId = ref(0)
@@ -39,22 +41,46 @@ const deliveryStatus = ref({
 // 订单创建时间
 const orderCreatedAt = ref('')
 
-// 根据订单创建日期设置配送状态
-// 2026-03-22 之前的订单 → 已送达
-// 2026-03-22 之后的订单 → 待确认
-const updateDeliveryStatus = () => {
+// 配送时间线步骤（与后台管理端的订单流转一致）
+const stepNames = ['商家接单', '骑手取餐', '配送中', '已送达']
+
+// 订单状态 → 已完成步骤数
+const statusProgress: Record<string, number> = {
+  待确认: 0,
+  已接单: 1,
+  已取餐: 2,
+  配送中: 3,
+  已送达: 4,
+  已完成: 4
+}
+
+// 按订单真实状态渲染配送时间线
+const applyDeliveryStatus = (status: string) => {
+  if (status === '已退款' || status === '已取消') {
+    deliveryStatus.value = {
+      status,
+      estimatedTime: '15:30',
+      steps: stepNames.map((name) => ({ name, completed: false }))
+    }
+    return
+  }
+  const completedCount = statusProgress[status] ?? 0
+  deliveryStatus.value = {
+    status,
+    estimatedTime: '15:30',
+    steps: stepNames.map((name, index) => ({ name, completed: index < completedCount }))
+  }
+}
+
+// 优先使用后端返回的真实状态；缺失时兼容历史订单按创建日期推断
+const updateDeliveryStatus = (status?: string) => {
+  if (status && (status in statusProgress || status === '已退款' || status === '已取消')) {
+    applyDeliveryStatus(status)
+    return
+  }
   if (!orderCreatedAt.value) {
     // 默认：配送中状态
-    deliveryStatus.value = {
-      status: '配送中',
-      estimatedTime: '15:30',
-      steps: [
-        { name: '商家接单', completed: true },
-        { name: '骑手取餐', completed: true },
-        { name: '配送中', completed: true },
-        { name: '已送达', completed: false }
-      ]
-    }
+    applyDeliveryStatus('配送中')
     return
   }
 
@@ -62,44 +88,39 @@ const updateDeliveryStatus = () => {
   const orderDateStr = orderCreatedAt.value.split(' ')[0] // 只取日期部分
   const orderDate = new Date(orderDateStr)
   const cutoffDate = new Date('2026-03-22')
-
-  if (orderDate < cutoffDate) {
-    // 2026-03-22 之前 → 已送达：所有步骤完成
-    deliveryStatus.value = {
-      status: '已送达',
-      estimatedTime: '15:30',
-      steps: [
-        { name: '商家接单', completed: true },
-        { name: '骑手取餐', completed: true },
-        { name: '配送中', completed: true },
-        { name: '已送达', completed: true }
-      ]
-    }
-  } else {
-    // 2026-03-22 之后 → 待确认：所有步骤未完成
-    deliveryStatus.value = {
-      status: '待确认',
-      estimatedTime: '15:30',
-      steps: [
-        { name: '商家接单', completed: false },
-        { name: '骑手取餐', completed: false },
-        { name: '配送中', completed: false },
-        { name: '已送达', completed: false }
-      ]
-    }
-  }
+  applyDeliveryStatus(orderDate < cutoffDate ? '已送达' : '待确认')
 }
 
-// 获取订单项
+// 获取订单真实状态（后台管理端接单/取餐/配送/送达后会同步到这里）
+const fetchOrderStatus = async () => {
+  try {
+    const response = await getOrderByIdAPI(orderId.value)
+    const order = response?.data
+    if (order?.status) {
+      orderInfo.value.status = order.status
+      applyDeliveryStatus(order.status)
+      return true
+    }
+  } catch (err) {
+    console.error('获取订单状态失败:', err)
+  }
+  return false
+}
+
+// 获取订单项与订单真实状态
 const fetchOrderItems = async () => {
   try {
     const response = await getOrderItemsByOrderIdAPI(orderId.value)
     console.log('订单项数据:', response.data)
     orderItems.value = response.data
-    // 根据订单创建日期更新配送状态
-    updateDeliveryStatus()
   } catch (err) {
     console.error('获取订单项失败:', err)
+  }
+  // 优先使用后端真实状态（后台管理端接单/取餐/配送/送达后会同步到时间线）
+  const hasBackendStatus = await fetchOrderStatus()
+  if (!hasBackendStatus) {
+    // 后端未返回有效状态时按创建日期推断，兼容历史订单
+    updateDeliveryStatus()
   }
 }
 
@@ -120,33 +141,31 @@ const fetchShopInfo = async () => {
   }
 }
 
-// 组件挂载时获取数据
-onMounted(() => {
-  // 从路由参数中获取订单ID和创建时间
+// 页面加载时获取数据
+// 统一用 onLoad 取页面参数：小程序端 getCurrentPages() 的页面对象有 options，
+// 而 App 端（app-vue）没有该属性，直接访问会导致 Cannot read property of undefined
+onLoad((options) => {
   try {
-    const pages = getCurrentPages()
-    if (pages.length > 0) {
-      const currentPage = pages[pages.length - 1] as any
-      console.log('当前页面:', currentPage)
-      console.log('页面参数:', currentPage.options)
-      orderId.value = Number(currentPage.options.orderId) || 0
-      orderCreatedAt.value = decodeURIComponent(currentPage.options.createdAt || '')
-      console.log('订单ID:', orderId.value)
-      console.log('订单创建时间:', orderCreatedAt.value)
-      
-      // 获取订单项数据
-      if (orderId.value) {
-        fetchOrderItems()
-      } else {
-        console.error('订单ID获取失败')
-      }
+    orderId.value = Number(options?.orderId) || 0
+    const rawCreatedAt = (options?.createdAt as string) || ''
+    try {
+      orderCreatedAt.value = decodeURIComponent(rawCreatedAt)
+    } catch {
+      orderCreatedAt.value = rawCreatedAt
+    }
+    console.log('订单ID:', orderId.value)
+    console.log('订单创建时间:', orderCreatedAt.value)
+
+    // 获取订单项数据
+    if (orderId.value) {
+      fetchOrderItems()
     } else {
-      console.error('获取页面实例失败')
+      console.error('订单ID获取失败')
     }
   } catch (err) {
     console.error('获取订单参数失败:', err)
   }
-  
+
   // 获取店铺信息
   fetchShopInfo()
 })
@@ -230,8 +249,11 @@ const buyAgain = async () => {
   <view class="order-status-section">
     <view class="status-content">
       <view class="status-title">{{ deliveryStatus.status }}</view>
-      <view class="status-subtitle" v-if="deliveryStatus.status === '已送达'">商品已送达，感谢您的支持</view>
+      <view class="status-subtitle" v-if="deliveryStatus.status === '已送达' || deliveryStatus.status === '已完成'">商品已送达，感谢您的支持</view>
       <view class="status-subtitle" v-else-if="deliveryStatus.status === '待确认'">等待商家接单确认</view>
+      <view class="status-subtitle" v-else-if="deliveryStatus.status === '已接单'">商家已接单，等待骑手取餐</view>
+      <view class="status-subtitle" v-else-if="deliveryStatus.status === '已取餐'">骑手已取餐，正在赶来</view>
+      <view class="status-subtitle" v-else-if="deliveryStatus.status === '已退款' || deliveryStatus.status === '已取消'">订单已退款取消，感谢您的理解</view>
       <view class="status-subtitle" v-else>预计{{ deliveryStatus.estimatedTime }}送达</view>
     </view>
     <view class="status-icon">
@@ -275,7 +297,7 @@ const buyAgain = async () => {
     <view class="section-title">商品</view>
     <view class="item-list">
       <view v-for="item in orderItems" :key="item.id" class="item">
-        <image :src="`http://localhost:8080/mian.png`" class="item-image"></image>
+        <image :src="`${baseUrl}/mian.png`" class="item-image"></image>
         <view class="item-details">
           <view class="item-name">{{ item.product.name }}</view>
           <!-- <view class="item-desc">微辣，不要香菜</view> -->

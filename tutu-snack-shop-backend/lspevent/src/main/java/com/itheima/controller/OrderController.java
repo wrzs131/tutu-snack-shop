@@ -77,4 +77,17 @@ public class OrderController {
         orderService.updateStatus(id, status);
         return Result.success();
     }
+
+    @Operation(summary = "后台订单状态流转（商家接单/骑手取餐/配送/送达/退款）")
+    @PutMapping("/admin/flowStatus")
+    public Result adminFlowStatus(@RequestParam Integer id,
+                                  @RequestParam String status,
+                                  @RequestParam(required = false) String role) {
+        try {
+            orderService.adminFlowStatus(id, status, role == null ? "admin" : role);
+            return Result.success();
+        } catch (Exception e) {
+            return Result.error(e.getMessage());
+        }
+    }
 }

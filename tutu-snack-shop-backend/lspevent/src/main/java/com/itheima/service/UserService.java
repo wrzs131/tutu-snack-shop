@@ -45,4 +45,12 @@ public interface UserService {
     void delete(Integer id);
 
     User wxlogin(UserLoginDTO userLoginDTO);
+
+    /**
+     * 后台账号登录（管理员/商家/骑手）
+     * @param username 登录账号
+     * @param password 登录密码
+     * @return 登录成功返回用户信息，失败返回 null
+     */
+    User loginByUsername(String username, String password);
 }

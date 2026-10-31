@@ -58,4 +58,14 @@ public interface OrderService {
      * @param status 新的订单状态
      */
     void updateStatus(Integer id, String status);
+
+    /**
+     * 后台订单状态流转（带角色校验）
+     * 流程：待确认 → 已接单(商家) → 已取餐(骑手) → 配送中(骑手) → 已送达(骑手)
+     *       待确认 → 已退款(管理员)
+     * @param id 订单ID
+     * @param targetStatus 目标状态
+     * @param operatorRole 操作角色 admin/merchant/rider
+     */
+    void adminFlowStatus(Integer id, String targetStatus, String operatorRole);
 }

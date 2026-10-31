@@ -22,6 +22,14 @@ public class User {
     private String phone;
     //头像
     private String avatar;
+    //角色: admin/merchant/rider/customer
+    private String role;
+    //员工登录账号
+    private String username;
+    //员工登录密码
+    private String password;
+    //账号状态: active/disabled
+    private String status;
     //创建时间
     private LocalDateTime createdAt;
     //更新时间

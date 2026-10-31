@@ -5,6 +5,7 @@ import { getCategoryListAPI, getCategoryProductsAPI, getShopListAPI } from '@/se
 import { getCartListAPI, addToCartAPI, updateCartAPI, deleteFromCartAPI, clearCartAPI } from '@/services/cart'
 import type { CategoryDataItem, ProductItem, ShopInfo } from '@/types/home.d'
 import type { CartItem, CartData } from '@/types/cart.d'
+import { baseUrl } from '@/utils/baseUrl'
 
 // 店铺信息（底部营业时间使用）
 const shopInfo = ref<ShopInfo>({
@@ -49,8 +50,8 @@ const error = ref('')
 // 搜索关键词
 const searchKeyword = ref('')
 
-// 商品图片URL
-const imageUrl = 'http://localhost:8080'
+// 商品图片URL（与请求地址保持一致，App 端自动切换到模拟器可访问的主机地址）
+const imageUrl = baseUrl
 
 // 购物车相关状态
 const showCartPopup = ref(false)
@@ -397,7 +398,7 @@ onMounted(() => {
                 <text v-if="product.discount" class="discount">{{ product.discount }}</text>
               </view>
               <view class="add-btn" v-if="product.stock > 0" @click="handleAddToCart(product, $event)">
-                <img src="/static/images/add.png" class="add-icon">
+                <image src="/static/images/add.png" class="add-icon" mode="aspectFit"></image>
               </view>
             </view>
           </view>

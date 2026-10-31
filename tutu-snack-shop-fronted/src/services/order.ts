@@ -1,4 +1,4 @@
-import type { OrderListResponse, OrderItemListResponse, OrderQueryParam, CreateOrderParam } from "@/types/order.d"
+import type { OrderListResponse, OrderItemListResponse, OrderQueryParam, CreateOrderParam, OrderItem } from "@/types/order.d"
 import { http } from "@/utils/http"
 
 /**
@@ -10,6 +10,17 @@ export const getOrderListAPI = (params: OrderQueryParam) => {
     method: 'GET',
     url: '/order/list',
     data: params
+  })
+}
+
+/**
+ * 根据订单ID获取订单详情（含后台管理端流转后的真实状态）
+ * @param orderId 订单ID
+ */
+export const getOrderByIdAPI = (orderId: number) => {
+  return http<OrderItem>({
+    method: 'GET',
+    url: `/order/getById/${orderId}`
   })
 }
 

@@ -76,7 +76,7 @@ const handleLogout = () => {
         <image
           class="avatar"
           mode="aspectFill"
-          src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/avatar_3.jpg"
+          src="/static/images/user.png"
         ></image>
         <view class="user-info">
           <view class="nickname">美食探索者</view>

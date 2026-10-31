@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { mockBaseUrl } from '@/utils/baseUrl';
 
 // 表单数据
 const nickname = ref('');
@@ -29,7 +30,7 @@ const handleRegister = async () => {
 
   try {
     const res = await uni.request({
-      url: 'http://127.0.0.1:8000/users/register',
+      url: `${mockBaseUrl}/users/register`,
       method: 'POST',
       data: {
         nickname: nickname.value,

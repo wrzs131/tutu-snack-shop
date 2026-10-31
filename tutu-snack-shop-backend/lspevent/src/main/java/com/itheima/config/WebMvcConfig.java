@@ -21,6 +21,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns(
                         "/user/login",
+                        // 后台管理端登录属于公开接口，不需要携带令牌
+                        "/admin/login",
+                        "/error",
                         "/doc.html",
                         "/webjars/**",
                         "/swagger-resources",

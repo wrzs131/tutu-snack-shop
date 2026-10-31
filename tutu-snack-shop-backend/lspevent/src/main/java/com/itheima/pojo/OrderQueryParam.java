@@ -10,6 +10,7 @@ public class OrderQueryParam {
     private Integer page=1;//页码
     private Integer pageSize=10;//每页展示记录数
 //    private Integer id;
+    private String status;//订单状态过滤
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate begin;//入职开始时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -11,6 +11,9 @@
 <!--            <if test="id != null">-->
 <!--                and id = #{id}-->
 <!--            </if>-->
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
             <if test="begin != null">
                 and date(created_at) &gt;= date(#{begin})
             </if>
@@ -18,6 +21,7 @@
                 and date(created_at) &lt;= date(#{end})
             </if>
         </where>
+        order by created_at desc
     </select>
 
     <select id="getById" resultType="com.itheima.pojo.Order">

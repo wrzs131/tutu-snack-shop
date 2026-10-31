@@ -26,7 +26,7 @@ public class Result<T> {
     public static <T> Result<T> error(String message){
         Result<T> result = new Result<>();
         result.code=0;
-        result.message="失败";
+        result.message = (message != null && !message.isEmpty()) ? message : "失败";
         return result;
     }
 }

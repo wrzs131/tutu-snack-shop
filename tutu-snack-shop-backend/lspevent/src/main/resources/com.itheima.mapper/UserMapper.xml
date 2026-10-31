@@ -16,15 +16,22 @@
         select * from user where phone = #{phone}
     </select>
 
-    <insert id="insert" parameterType="com.itheima.pojo.User">
-        insert into user(openid, nickname, phone, avatar, created_at, updated_at)
-        values(#{openid}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, now(), now())
+    <insert id="insert" parameterType="com.itheima.pojo.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(openid, nickname, phone, avatar, username, password, role, status, created_at, updated_at)
+        values(#{openid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR},
+               #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+               IFNULL(#{role,jdbcType=VARCHAR}, 'customer'), IFNULL(#{status,jdbcType=VARCHAR}, 'active'),
+               now(), now())
     </insert>
 
     <update id="update" parameterType="com.itheima.pojo.User">
         update user
         set nickname = #{nickname},
-            phone = #{phone},
+            phone = #{phone,jdbcType=VARCHAR},
+            role = IFNULL(#{role,jdbcType=VARCHAR}, role),
+            username = #{username,jdbcType=VARCHAR},
+            password = IFNULL(#{password,jdbcType=VARCHAR}, password),
+            status = IFNULL(#{status,jdbcType=VARCHAR}, status),
             updated_at = now()
         where id = #{id}
     </update>
@@ -35,6 +42,10 @@
 
     <select id="getByOpenid" resultType="com.itheima.pojo.User">
         select * from user where openid = #{openid}
+    </select>
+
+    <select id="getByUsername" resultType="com.itheima.pojo.User">
+        select * from user where username = #{username}
     </select>
 
 </mapper>

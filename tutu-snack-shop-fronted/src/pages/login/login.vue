@@ -4,6 +4,7 @@ import { onLoad } from '@dcloudio/uni-app';
 import { postLoginWxMinAPI, postLoginWxMinSimpleAPI } from '@/services/login';
 import { useMemberStore } from '@/stores';
 import type { LoginResult } from '@/types/member';
+import { mockBaseUrl } from '@/utils/baseUrl';
 
 // 表单数据
 const identifier = ref('');
@@ -28,7 +29,7 @@ const handleLogin = async () => {
 
   try {
     // 构建包含query参数的URL
-    const url = `http://127.0.0.1:8000/users/login?identifier=${encodeURIComponent(identifier.value)}&password=${encodeURIComponent(password.value)}`;
+    const url = `${mockBaseUrl}/users/login?identifier=${encodeURIComponent(identifier.value)}&password=${encodeURIComponent(password.value)}`;
     const res = await uni.request({
       url: url,
       method: 'POST',

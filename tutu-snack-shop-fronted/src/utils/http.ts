@@ -5,7 +5,8 @@
  *  拦截request请求；拦截uploadFile文件上传
  */
 import { useMemberStore } from "@/stores"
-const baseUrl = 'http://localhost:8080'
+// 后端地址按运行环境区分（App 端自动使用模拟器访问电脑的地址）
+import { baseUrl } from './baseUrl'
 
 //添加拦截器
 const httpInterceptor = {

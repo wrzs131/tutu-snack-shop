@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import CustomNavbar from '@/pages/index/components/CustomNavbar.vue'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
 import { createOrderAPI } from '@/services/order'
 import type { CartItem } from '@/types/cart.d'
+import { baseUrl } from '@/utils/baseUrl'
 
 // 购物车数据
 const cartItems = ref<CartItem[]>([])
@@ -10,27 +12,33 @@ const totalAmount = ref<number>(0)
 const shopName = ref<string>('图图零食店')
 
 // 图片URL
-const imageUrl = 'http://localhost:8080'
+const imageUrl = baseUrl
 
 // 加载状态
 const loading = ref(false)
 
-// 获取传入的购物车数据
-onMounted(() => {
-  const pages = getCurrentPages()
-  if (pages.length > 0) {
-    const currentPage = pages[pages.length - 1] as any
-    const options = currentPage.options
-    if (options.cartData) {
-      try {
-        const data = JSON.parse(decodeURIComponent(options.cartData))
-        cartItems.value = data.items || []
-        totalAmount.value = data.totalAmount || 0
-      } catch (err) {
-        console.error('解析购物车数据失败:', err)
-      }
+// 解析购物车数据
+// 小程序端 getCurrentPages() 的页面对象带 options，App 端（app-vue）没有该属性，
+// 因此统一改用 onLoad 获取页面参数，三端行为一致
+const loadCartData = (raw?: string) => {
+  if (!raw) return
+  try {
+    let text = raw
+    try {
+      text = decodeURIComponent(raw)
+    } catch {
+      // 个别平台会自动解码，直接使用原值
     }
+    const data = JSON.parse(text)
+    cartItems.value = data.items || []
+    totalAmount.value = data.totalAmount || 0
+  } catch (err) {
+    console.error('解析购物车数据失败:', err)
   }
+}
+
+onLoad((options) => {
+  loadCartData(options?.cartData as string)
 })
 
 // 确认订单

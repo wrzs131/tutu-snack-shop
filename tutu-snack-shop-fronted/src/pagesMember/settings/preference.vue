@@ -47,15 +47,15 @@ const onAutoScrollChange = (e: any) => {
           <radio-group v-model="scrollFrequency" class="radio-group">
             <label class="radio-item">
               <radio value="low" color="#9c27b0" />
-              <span class="radio-text">低频率</span>
+              <text class="radio-text">低频率</text>
             </label>
             <label class="radio-item">
               <radio value="medium" color="#9c27b0" />
-              <span class="radio-text">中等频率</span>
+              <text class="radio-text">中等频率</text>
             </label>
             <label class="radio-item">
               <radio value="high" color="#9c27b0" />
-              <span class="radio-text">高频率</span>
+              <text class="radio-text">高频率</text>
             </label>
           </radio-group>
           <view class="section-desc">选择你希望收到滚单的频率</view>
@@ -69,23 +69,23 @@ const onAutoScrollChange = (e: any) => {
           <checkbox-group v-model="scrollType" class="checkbox-group">
             <label class="checkbox-item">
               <checkbox value="breakfast" color="#9c27b0" />
-              <span class="checkbox-text">早餐</span>
+              <text class="checkbox-text">早餐</text>
             </label>
             <label class="checkbox-item">
               <checkbox value="lunch" color="#9c27b0" />
-              <span class="checkbox-text">午餐</span>
+              <text class="checkbox-text">午餐</text>
             </label>
             <label class="checkbox-item">
               <checkbox value="dinner" color="#9c27b0" />
-              <span class="checkbox-text">晚餐</span>
+              <text class="checkbox-text">晚餐</text>
             </label>
             <label class="checkbox-item">
               <checkbox value="snack" color="#9c27b0" />
-              <span class="checkbox-text">零食</span>
+              <text class="checkbox-text">零食</text>
             </label>
             <label class="checkbox-item">
               <checkbox value="drink" color="#9c27b0" />
-              <span class="checkbox-text">饮品</span>
+              <text class="checkbox-text">饮品</text>
             </label>
           </checkbox-group>
           <view class="section-desc">选择你感兴趣的滚单类型</view>
@@ -99,15 +99,15 @@ const onAutoScrollChange = (e: any) => {
           <radio-group v-model="priceRange" class="radio-group">
             <label class="radio-item">
               <radio value="low" color="#9c27b0" />
-              <span class="radio-text">10-20元</span>
+              <text class="radio-text">10-20元</text>
             </label>
             <label class="radio-item">
               <radio value="medium" color="#9c27b0" />
-              <span class="radio-text">20-50元</span>
+              <text class="radio-text">20-50元</text>
             </label>
             <label class="radio-item">
               <radio value="high" color="#9c27b0" />
-              <span class="radio-text">50元以上</span>
+              <text class="radio-text">50元以上</text>
             </label>
           </radio-group>
           <view class="section-desc">选择你希望收到的滚单价格范围</view>
@@ -119,7 +119,7 @@ const onAutoScrollChange = (e: any) => {
         <view class="section-title">自动滚单</view>
         <view class="section-content">
           <view class="switch-item">
-            <span class="switch-text">开启自动滚单功能</span>
+            <text class="switch-text">开启自动滚单功能</text>
             <switch 
   :checked="autoScroll" 
   color="#9c27b0" 
