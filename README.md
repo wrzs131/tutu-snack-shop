@@ -1,4 +1,23 @@
+![1](./tutu-snack-shop-fronted-UI/111.png)
+
 # 图图零食店
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Vue-3-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white" alt="Vue 3"/>
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/uni_app-多端框架-2B9939?style=flat-square" alt="uni-app"/>
+  <img src="https://img.shields.io/badge/微信小程序-发布端-07C160?style=flat-square&logo=wechat&logoColor=white" alt="微信小程序"/>
+  <img src="https://img.shields.io/badge/Android_App-发布端-3DDC84?style=flat-square&logo=android&logoColor=white" alt="Android App"/>
+  <img src="https://img.shields.io/badge/Element_Plus-后台UI-409EFF?style=flat-square" alt="Element Plus"/>
+  <img src="https://img.shields.io/badge/Pinia-状态管理-F7D336?style=flat-square&logo=pinia&logoColor=black" alt="Pinia"/>
+  <img src="https://img.shields.io/badge/Vite-构建-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite"/>
+  <img src="https://img.shields.io/badge/Java-17-F89820?style=flat-square&logo=openjdk&logoColor=white" alt="Java 17"/>
+  <img src="https://img.shields.io/badge/Spring_Boot-3.5-6DB33F?style=flat-square&logo=springboot&logoColor=white" alt="Spring Boot"/>
+  <img src="https://img.shields.io/badge/MySQL-8-4479A1?style=flat-square&logo=mysql&logoColor=white" alt="MySQL 8"/>
+  <img src="https://img.shields.io/badge/MyBatis-ORM-E4003F?style=flat-square" alt="MyBatis"/>
+  <img src="https://img.shields.io/badge/JWT-鉴权-000000?style=flat-square&logo=jsonwebtokens&logoColor=white" alt="JWT"/>
+  <img src="https://img.shields.io/badge/ERNIE_3.5_8K-百度千帆-2932E1?style=flat-square&logo=baidu&logoColor=white" alt="ERNIE-3.5-8K"/>
+</p>
 
 一款基于 AI 智能体的移动端电商零食店应用，为用户提供智能化的零食购物体验。
 
