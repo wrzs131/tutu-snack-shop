@@ -1,0 +1,19 @@
+name: Record repo traffic
+
+on:
+  schedule:
+    # 每天 UTC 1:23 执行一次（北京时间 9:23）
+    - cron: "23 1 * * *"
+  workflow_dispatch: # 支持手动触发验证
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # commit 统计结果需要写权限
+    steps:
+      - name: Fetch and record traffic stats
+        uses: jgehrcke/github-repo-stats@v1.4.2 # 没有 @v1 大版本标签，必须用具体版本
+        with:
+          repository: wrzs131/tutu-snack-shop
+          ghtoken: ${{ secrets.STATS_TOKEN }}
